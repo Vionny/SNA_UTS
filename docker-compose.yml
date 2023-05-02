@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: redlock-db
+    build: ./sql
+    restart: always
+    environment:
+      MYSQL_ROOT_DATABASE: redlockdb
+      MYSQL_ROOT_PASSWORD: db
+      MYSQL_USERNAME: root
+      MYSQL_HOSTNAME: mysql
+    ports:
+      - "3306:3306"
+      
+  php:
+    image: redlock-web-2.0
+    build: ./
+    ports:
+      - "7077:80"
+    depends_on:
+      - mysql
